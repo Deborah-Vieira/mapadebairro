@@ -15,12 +15,14 @@ export function getGoogleMaps() {
 }
 
 //FUNÇÃO PEGA DADOS DA API FOURSQUARE
-export function buscaLugares() {
-  let city = "Silver Spring, MD";
-  let query = "Shopping";
+export function load_places() {
+  let city = "Brasilia, DF";
+  let query = "Comida";
   var apiURL =
     "https://api.foursquare.com/v2/venues/search?client_id=R54VZH1EHZB4R4SBGYBEA2DBLRDXVFLKVGPAVZHGHQ34KNMS&client_secret=EUVHLJLLA340F4XL51MQSSJS2VVXVNNLR302DQ0LNPJZPYR2&v=20130815%20&limit=50&near=" +
-    city + "&query=" + query +
+    city +
+    "&query=" +
+    query +
     "";
   return fetch(apiURL).then(resp => resp.json());
 }
