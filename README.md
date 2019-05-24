@@ -2,10 +2,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
-
+Clone ou faça download do projeto
+Descompacte o projeto onde desejar
 ### `npm start`
-
+Abra o console de sua maquina, navegue por ele até a pasta principal do seu projeto
+Dentro da pasta principal digite o comando: npm start ou yarn start (o que preferir)
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
