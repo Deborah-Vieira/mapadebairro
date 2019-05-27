@@ -9,6 +9,9 @@ export function getGoogleMaps() {
     const script = document.createElement("script");
     const API = "AIzaSyCizCkZS0qPzj1i5QQ7zoeD8gkZ1tscUgU";
     script.src = `https://maps.googleapis.com/maps/api/js?key=${API}&callback=resolveGoogleMapsPromise`;
+    script.onerror = () => {
+      alert("Erro Google Maps: Por favor carregue a página e tente novamente.");
+    };
     script.async = true;
     document.body.appendChild(script);
   });

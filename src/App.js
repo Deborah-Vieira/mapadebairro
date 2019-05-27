@@ -19,62 +19,68 @@ class App extends Component {
     //chamo a função que busca lugares no foursquare e guardo na variavel lugarPromisse
 
     //aqui retorna dentro desse array todos esses valores o objeto mapa e foursquare(lugares)
-    Promise.all([googleMapsPromise, placesPromise]).then(values => {
-      let google = values[0]; //atribuindo para essa variavel o array map
-      this.venues = values[1].response.venues; //atribuindo para essa variavel o array venue
+    Promise.all([googleMapsPromise, placesPromise])
+      .then(values => {
+        let google = values[0]; //atribuindo para essa variavel o array map
+        this.venues = values[1].response.venues; //atribuindo para essa variavel o array venue
 
-      //estou armazenando nas propriedades do componente e nao no estado.
-      this.google = google;
-      this.markers = [];
-      this.infowindow = new google.maps.InfoWindow(); //janela de informação do marcador,
-      //criando um mapa
-      this.map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 9,
-        scrollwheel: true,
-        center: {
-          lat: this.venues[0].location.lat,
-          lng: this.venues[0].location.lng
-        }
-      });
-
-      //para cada lugar CHAMADO VENUE eu estou criando um marcador , o position é um objeto que passa os dados pertinentes a cada lugar com sua localização ou seja suas props(propriedades), posso adcionar outras propriedades para esse objeto
-      this.venues.forEach(venue => {
-        let marker = new google.maps.Marker({
-          position: { lat: venue.location.lat, lng: venue.location.lng },
-          map: this.map,
-          venue: venue,
-          id: venue.id,
-          name: venue.name,
-          animation: google.maps.Animation.DROP
-        });
-
-        //função que mostra uma tela de informações do marcador, a animação aqui é quando eu clico e ele pula para eu saber que ele foi clicado
-        marker.addListener("click", () => {
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
+        //estou armazenando nas propriedades do componente e nao no estado.
+        this.google = google;
+        this.markers = [];
+        this.infowindow = new google.maps.InfoWindow(); //janela de informação do marcador,
+        //criando um mapa
+        this.map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 9,
+          scrollwheel: true,
+          center: {
+            lat: this.venues[0].location.lat,
+            lng: this.venues[0].location.lng
           }
-          setTimeout(() => {
-            marker.setAnimation(null);
-          }, 1500);
         });
 
-        google.maps.event.addListener(marker, "click", () => {
-          this.infowindow.setContent(marker.name);
-          // this.map.setZoom(13);
-          this.map.setCenter(marker.position);
-          this.infowindow.open(this.map, marker);
-          this.map.panBy(0, -125);
-        });
+        //para cada lugar CHAMADO VENUE eu estou criando um marcador , o position é um objeto que passa os dados pertinentes a cada lugar com sua localização ou seja suas props(propriedades), posso adcionar outras propriedades para esse objeto
+        this.venues.forEach(venue => {
+          let marker = new google.maps.Marker({
+            position: { lat: venue.location.lat, lng: venue.location.lng },
+            map: this.map,
+            venue: venue,
+            id: venue.id,
+            name: venue.name,
+            animation: google.maps.Animation.DROP
+          });
 
-        this.markers.push(marker); //empurrando os marcadores
-      });
-      //aqui setará um estado, onde mais abaixo faço uma função que só será atendida se esse estado aqui nao for vazio, os locais serão locais e causa um renrender atualizando o app
-      this.setState({ filteredVenues: this.venues });
-      //estou colocando o this na frente de todos os venues porque eu quero ter uma copia da lista
-      //console.log(values);
-    });
+          //função que mostra uma tela de informações do marcador, a animação aqui é quando eu clico e ele pula para eu saber que ele foi clicado
+          marker.addListener("click", () => {
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+            setTimeout(() => {
+              marker.setAnimation(null);
+            }, 1500);
+          });
+
+          google.maps.event.addListener(marker, "click", () => {
+            this.infowindow.setContent(marker.name);
+            // this.map.setZoom(13);
+            this.map.setCenter(marker.position);
+            this.infowindow.open(this.map, marker);
+            this.map.panBy(0, -125);
+          });
+
+          this.markers.push(marker); //empurrando os marcadores
+        });
+        //aqui setará um estado, onde mais abaixo faço uma função que só será atendida se esse estado aqui nao for vazio, os locais serão locais e causa um renrender atualizando o app
+        this.setState({ filteredVenues: this.venues });
+        //estou colocando o this na frente de todos os venues porque eu quero ter uma copia da lista
+        //console.log(values);
+      })
+      .catch(erro =>
+        alert(
+          `Erro! Os lugares nao foram carregados corretamente. Tente novamente mais tarde.-> ${erro}`
+        )
+      ); //melhorar esse erro
   }
   //O nome  de um marcador que é igual ao id do local dele, como id é unico, ele só pode me retornar 1 por vez
   //o que esse metodo faz é pegar o marcador com sua localização e associar com cada item da lista
