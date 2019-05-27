@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       query: ""
     };
+    this.filterVenues = this.filterVenues.bind(this);
   }
 
   //obtendo dados do google getGoogleMaps
@@ -98,6 +99,7 @@ class App extends Component {
   //metodo que vai filtrar os marcadores para que eu possa filtrar os locais, nesse momento quando eu seto o estado de query o que eu digito aparece no input
   //vou criar um foreach para cada marcador para acessa-los
   // na linha 76 nome de todos os locais onde o nome inclui a query certa, faço uma logica no campo de busca para filtrar os marcadores e a lista
+
   filterVenues(query) {
     let f = this.venues.filter(venue =>
       venue.name.toLowerCase().includes(query.toLowerCase())

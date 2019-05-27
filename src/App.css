@@ -46,5 +46,30 @@
 
 #input:focus {
   box-shadow: 0 0 5px grey;
-  width: 250px;
+  width: 400px;
+}
+
+/*Responsivo*/
+
+@media screen and (max-width: 766px) {
+  #sidebar {
+    position: absolute;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-right: 0;
+    padding: 10px;
+  }
+
+  #map {
+    width: 100%;
+  }
+
+  .venue-item:hover {
+    color: #fff;
+    background: #696969;
+  }
+  #input:focus {
+    box-shadow: 0 0 5px grey;
+    width: 400px;
+  }
 }
