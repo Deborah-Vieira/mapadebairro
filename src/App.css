@@ -32,7 +32,6 @@
 }
 
 #input {
-  /*display: block;*/
   width: 80%;
   border: 4px solid grey;
   background: #fff;
@@ -51,25 +50,45 @@
 
 /*Responsivo*/
 
-@media screen and (max-width: 766px) {
+@media screen and (min-width: 300px) and (max-width: 766px) {
   #sidebar {
     position: absolute;
-    flex-wrap: wrap;
-    margin: auto;
-    margin-right: 0;
-    padding: 10px;
+    width: 96%;
+    height: 350px;
+    display: block;
+    overflow-y: scroll;
   }
 
   #map {
     width: 100%;
+    padding: 250px 20px;
   }
 
   .venue-item:hover {
     color: #fff;
     background: #696969;
   }
+
   #input:focus {
     box-shadow: 0 0 5px grey;
-    width: 400px;
+    width: 300px;
+  }
+
+  #input {
+    width: 80%;
+    border: 4px solid grey;
+    background: #fff;
+    padding: 7px 10px;
+    margin-top: 30px;
+    outline: none;
+    font-size: 14px;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .venue-item {
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid grey;
+    margin-top: 10px;
+    width: 94%;
   }
 }

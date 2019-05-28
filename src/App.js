@@ -130,7 +130,6 @@ class App extends Component {
           listItemClick={this.listItemClick}
           filteredVenues={this.state.filteredVenues}
         />
-        )) }
       </div>
     );
   }
